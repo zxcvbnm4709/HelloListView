@@ -31,7 +31,7 @@ public class HelloListView extends Activity{
 		   {
 		       public void onItemClick(AdapterView adapterView, View view,int arg2, long arg3)
 		       {
-		    	   selectedShown.setText("Clicked!");
+		    	   selectedShown.setText(COUNTRIES[arg2]);
 		       }
 		   }
 		);
