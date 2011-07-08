@@ -5,10 +5,13 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -16,11 +19,24 @@ import android.widget.Toast;
 
 public class HelloListView extends Activity{
 	private ListView lv;
+	protected String selectedCountry;
+	protected TextView selectedShown;
 	public void onCreate(Bundle icicle){
 		super.onCreate(icicle);
 		setContentView(R.layout.main);
 		lv=(ListView)findViewById(R.id.ListView01);
 		lv.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1 , COUNTRIES));
+		lv.setOnItemClickListener(
+		   new AdapterView.OnItemClickListener() 
+		   {
+		       public void onItemClick(AdapterView adapterView, View view,int arg2, long arg3)
+		       {
+		    	   selectedShown.setText("Clicked!");
+		       }
+		   }
+		);
+
+		selectedShown = (TextView)findViewById(R.id.textView1);
 	}
     
     private static String[] COUNTRIES ={
@@ -66,4 +82,5 @@ public class HelloListView extends Activity{
         "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Wallis and Futuna", "Western Sahara",
         "Yemen", "Yugoslavia", "Zambia", "Zimbabwe"
       };
+
 }
