@@ -4,12 +4,13 @@
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
 			xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical">
+		<Button android:id="@+id/CheckList" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textSize="20sp" android:text="Check your list!"></Button>
 			<TextView 
 				android:id="@+id/textView1" 
 				android:layout_width="wrap_content" 
-				android:text="TextView" 
+				android:text="Choose one!" 
 				android:layout_height="wrap_content"
-				android:textSize="40sp">
+				android:textSize="20sp">
 			</TextView>
 			<ListView 
 				android:id="@+id/ListView01"

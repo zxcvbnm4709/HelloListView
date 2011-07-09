@@ -1,5 +1,7 @@
 package com.Example.HelloListView;
 
+import java.util.ArrayList;
+
 import android.R.string;
 import android.app.Activity;
 import android.app.ListActivity;
@@ -10,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,28 +20,39 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class HelloListView extends Activity{
+public class HelloListView extends Activity implements OnClickListener{
+	public static int BUTTON_CHECK = 1;
+	public static int BUTTON_SELECT = -1;
 	private ListView lv;
-	protected String selectedCountry;
+	private String selectedCountry;
+	private ArrayList List = new ArrayList();
+	private int nowCount=0 ;
+	private Button check ;
 	protected TextView selectedShown;
 	public void onCreate(Bundle icicle){
 		super.onCreate(icicle);
 		setContentView(R.layout.main);
+		check = (Button)findViewById(R.id.CheckList);
+		check.setOnClickListener(this);
+		check.setId(BUTTON_CHECK);
 		lv=(ListView)findViewById(R.id.ListView01);
 		lv.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1 , COUNTRIES));
 		lv.setOnItemClickListener(
 		   new AdapterView.OnItemClickListener() 
 		   {
 		       public void onItemClick(AdapterView adapterView, View view,int arg2, long arg3)
-		       {
-		    	   selectedShown.setText(COUNTRIES[arg2]);
+		       {	
+		    	   nowCount++;
+		    	   selectedShown.setText(COUNTRIES[arg2]+" is added!\n"+ "now added : " + nowCount);
+		    	   List.add(COUNTRIES[arg2]);
+		    	   check.setText("Check your list!");
+		    	   check.setId(BUTTON_CHECK);
 		       }
 		   }
 		);
-
+		
 		selectedShown = (TextView)findViewById(R.id.textView1);
 	}
-    
     private static String[] COUNTRIES ={
         "Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra",
         "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina",
@@ -82,5 +96,21 @@ public class HelloListView extends Activity{
         "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Wallis and Futuna", "Western Sahara",
         "Yemen", "Yugoslavia", "Zambia", "Zimbabwe"
       };
+    public void onClick(View v){
+    	if(this.check.getId()==BUTTON_CHECK){
+        	String buffer = new String("");
+        	for(int i =0;i<nowCount;i++){
+        		buffer = buffer+List.get(i)+"\n";
+        	}
+        	selectedShown.setText(buffer);
+        	check.setText("Back to selection!"); 
+        	check.setId(BUTTON_SELECT);
+    	}
+    	else if (this.check.getId()==BUTTON_SELECT){
+    		selectedShown.setText("Select next one!");
+    		check.setText("Check your list!");
+    		check.setId(BUTTON_CHECK);
+    	}
 
+    }
 }
